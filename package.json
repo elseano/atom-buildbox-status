@@ -1,0 +1,15 @@
+{
+  "name": "buildbox-status",
+  "main": "./lib/buildbox-status",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "activationEvents": ["buildbox-status:toggle"],
+  "repository": "https://github.com/atom/buildbox-status",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "q": "^1.0.1"
+  }
+}
