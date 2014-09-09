@@ -1,7 +1,7 @@
 {
   "name": "buildbox-status",
   "main": "./lib/buildbox-status",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A status line indicator for buildbox builds",
   "activationEvents": [
     "buildbox-status:toggle"
