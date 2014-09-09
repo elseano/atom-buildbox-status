@@ -30,3 +30,12 @@ A build in progress
 A build failed
 
 ![Oh noes](https://raw.githubusercontent.com/elseano/atom-buildbox-status/master/screenshots/failed.png)
+
+# Contributing
+
+I'd love contributions! I'm also going to write some specs soon, I promise!
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don't break it in a future version unintentionally.
+* Send me a pull request. Bonus points for topic branches.
