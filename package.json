@@ -1,10 +1,10 @@
 {
   "name": "buildbox-status",
   "main": "./lib/buildbox-status",
-  "version": "0.0.0",
-  "description": "A short description of your package",
+  "version": "0.0.1",
+  "description": "A status line indicator for buildbox builds",
   "activationEvents": ["buildbox-status:toggle"],
-  "repository": "https://github.com/atom/buildbox-status",
+  "repository": "https://github.com/elseano/buildbox-status",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"
