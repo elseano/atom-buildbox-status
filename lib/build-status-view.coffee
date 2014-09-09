@@ -82,7 +82,7 @@ class BuildStatusView extends View
 
     @status.addClass('pending')
 
-    branchPath = atom.project.getRepo().?branch ? []
+    branchPath = atom.project.getRepo()?.branch ? []
     branch = branchPath[branchPath.length - 1]
 
     atom.buildbox.builds(personal: true, branch: branch, @repoStatus)
