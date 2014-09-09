@@ -1,6 +1,7 @@
 # Buildbox Status Package
 
-A really simple build box status package based on a similar package for Travis CI https://github.com/tombell/travis-ci-status.
+A really simple build box status package based on a similar package for Travis
+CI https://github.com/tombell/travis-ci-status.
 
 It picks up your last build by looking at builds on your current branch.
 
@@ -10,7 +11,9 @@ It picks up your last build by looking at builds on your current branch.
 
 # Usage
 
-You can use the package Settings for Atom wide enjoyment, or have a `.buildbox.json` file in your project root with all the settings specific to that project.
+You can use the package Settings for Atom wide enjoyment, or have a `.buildbox.json`
+file in your project root with all the settings specific to that project, which
+is probably a better choice for your project name.
 
 For example:
 
