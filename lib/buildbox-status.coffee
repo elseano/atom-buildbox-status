@@ -13,7 +13,6 @@ module.exports =
   # Internal: The default configuration properties for the package.
   configDefaults:
     apiKey: '<Your buildbox api key>'
-    email: '<The email for the api key>'
     account: '<Default buildbox account>'
     project: '<Default buildbox project>'
 
