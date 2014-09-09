@@ -5,10 +5,6 @@ CI https://github.com/tombell/travis-ci-status.
 
 It picks up your last build by looking at builds on your current branch.
 
-# Todo
-
-* [ ] Trigger manual builds from the widget
-
 # Usage
 
 You can use the package Settings for Atom wide enjoyment, or have a `.buildbox.json`
@@ -24,3 +20,13 @@ For example:
   "project": "some-project"
 }
 ```
+
+# Screenshots
+
+A build in progress
+
+![Much anticipation](https://raw.githubusercontent.com/elseano/atom-buildbox-status/master/screenshots/in-progress.png)
+
+A build failed
+
+![Oh noes](https://raw.githubusercontent.com/elseano/atom-buildbox-status/master/screenshots/failed.png)
