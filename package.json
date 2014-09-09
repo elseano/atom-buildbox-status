@@ -1,9 +1,11 @@
 {
   "name": "buildbox-status",
   "main": "./lib/buildbox-status",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A status line indicator for buildbox builds",
-  "activationEvents": ["buildbox-status:toggle"],
+  "activationEvents": [
+    "buildbox-status:toggle"
+  ],
   "repository": "https://github.com/elseano/atom-buildbox-status",
   "license": "MIT",
   "engines": {
