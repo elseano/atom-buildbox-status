@@ -5,7 +5,6 @@ module.exports =
 class BuildBox
   constructor: (options) ->
     @apiKey = options['apiKey']
-    @email = options['email']
     @account = options['account']
     @project = options['project']
 
@@ -30,16 +29,11 @@ class BuildBox
 
   builds: (options, callback) =>
     project = options['project'] ? @project
-    personal = options['personal']
-    userEmail = options['email'] ? @email
     account = options['account'] ? @account
     apiKey = options['apiKey'] ? @apiKey
     branch = options['branch']
 
-    url = if personal? && userEmail?
-      "https://api.buildbox.io/v1/accounts/#{account}/projects/#{project}/builds?meta_data[personal]=#{personal}&api_key=#{apiKey}&meta_data[user_email]=#{userEmail}"
-    else
-      "https://api.buildbox.io/v1/accounts/#{account}/projects/#{project}/builds?api_key=#{apiKey}"
+    url = "https://api.buildbox.io/v1/accounts/#{account}/projects/#{project}/builds?api_key=#{apiKey}"
 
     if branch
       url += "&branch=#{branch}"

@@ -79,11 +79,10 @@ module.exports =
   init: ->
     @loadLocalConfig().then (config) =>
       apiKey = config['apiKey'] ? atom.config.get('buildbox-status.apiKey')
-      email = config['email'] ? atom.config.get('buildbox-status.email')
       account = config['account'] ? atom.config.get('buildbox-status.account')
       project = config['project'] ? atom.config.get('buildbox-status.project')
 
-      atom.buildbox = new BuildBox(apiKey: apiKey, account: account, email: email, project: project)
+      atom.buildbox = new BuildBox(apiKey: apiKey, account: account, project: project)
 
       atom.workspaceView.command 'buildbox-status:open-on-buildbox', =>
         @openOnBuildbox()

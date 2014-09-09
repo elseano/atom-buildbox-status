@@ -85,7 +85,7 @@ class BuildStatusView extends View
     branchPath = (atom.project.getRepo()?.branch ? "").split("/")
     branch = branchPath[branchPath.length - 1]
 
-    atom.buildbox.builds(personal: true, branch: branch, @repoStatus)
+    atom.buildbox.builds(branch: branch, @repoStatus)
 
   # Internal: Callback for the Buildbox repository request, updates the build
   # status.
