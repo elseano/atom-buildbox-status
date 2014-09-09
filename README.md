@@ -1,5 +1,20 @@
-# buildbox-status package
+# Buildbox Status Package
 
-A short description of your package.
+A really simple build box status package based on a similar package for Travis CI https://github.com/tombell/travis-ci-status.
 
-![A screenshot of your spankin' package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+Right now it's designed to pick up your builds by looking builds for your current branch with your email address.
+
+# Usage
+
+You can use the package Settings for Atom wide enjoyment, or have a `.buildbox.json` file in your project root with all the settings specific to that project.
+
+For example:
+
+``` json
+{
+  "apiKey": "53e4aa671ccbf9e41abc6d7a22361ed4",
+  "account": "buildbox-account",
+  "project": "some-project",
+  "email": "ohai@lolcats.com"
+}
+```
