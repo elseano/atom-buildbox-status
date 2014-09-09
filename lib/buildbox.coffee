@@ -36,9 +36,7 @@ class BuildBox
     apiKey = options['apiKey'] ? @apiKey
     branch = options['branch']
 
-    console.log("Requesting builds list from BuildBox...")
-
-    url = if personal
+    url = if personal? && userEmail?
       "https://api.buildbox.io/v1/accounts/#{account}/projects/#{project}/builds?meta_data[personal]=#{personal}&api_key=#{apiKey}&meta_data[user_email]=#{userEmail}"
     else
       "https://api.buildbox.io/v1/accounts/#{account}/projects/#{project}/builds?api_key=#{apiKey}"
@@ -56,7 +54,6 @@ class BuildBox
 
       res.on 'end', ->
         obj = JSON.parse(data);
-        console.log("Got builds, returning")
         callback(null, obj)
 
       res.on "error", (err) ->

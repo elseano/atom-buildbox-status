@@ -1,15 +1,16 @@
 # See https://atom.io/docs/latest/creating-a-package#menus for more details
 'context-menu':
   '.overlayer':
-      'Enable buildbox-status': 'buildbox-status:toggle'
+      'Enable Buildbox Status': 'buildbox-status:toggle'
 
 'menu': [
   {
     'label': 'Packages'
     'submenu': [
-      'label': 'buildbox-status'
+      'label': 'Buildbox'
       'submenu': [
-        { 'label': 'Toggle', 'command': 'buildbox-status:toggle' }
+        { 'label': 'Toggle', 'command': 'buildbox-status:toggle' },
+        { 'label': 'Refresh', 'command': 'buildbox-status:refresh' },
       ]
     ]
   }

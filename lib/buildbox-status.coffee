@@ -27,8 +27,7 @@ module.exports =
   #
   # Returns nothing.
   activate: ->
-    console.log "Activating"
-    atom.bb = @
+    atom.buildboxStatus = @
     @isGitHubRepo() and @init()
 
   # Internal: Deactive the package and destroys any views.
@@ -79,18 +78,18 @@ module.exports =
   # Returns nothing
   init: ->
     @loadLocalConfig().then (config) =>
-      console.log("Loaded!", config)
       apiKey = config['apiKey'] ? atom.config.get('buildbox-status.apiKey')
       email = config['email'] ? atom.config.get('buildbox-status.email')
       account = config['account'] ? atom.config.get('buildbox-status.account')
       project = config['project'] ? atom.config.get('buildbox-status.project')
 
-      console.log("apiKey", apiKey)
-
       atom.buildbox = new BuildBox(apiKey: apiKey, account: account, email: email, project: project)
 
       atom.workspaceView.command 'buildbox-status:open-on-buildbox', =>
         @openOnBuildbox()
+
+      atom.workspaceView.command 'buildbox-status:refresh', =>
+        @update()
 
       createStatusEntry = =>
         @buildMatrixView = new BuildMatrixView()

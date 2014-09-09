@@ -12,10 +12,12 @@ class BuildMatrixView extends View
         @div class: 'message', outlet: 'matrix', =>
           @p class: 'matrix-title', outlet: 'title', 'No build matrix fetched'
           @ul class: 'builds', outlet: 'builds'
+          @a class: 'refresh-link', outlet: 'refreshLink', 'Refresh'
 
   # Internal: Initialize the view.
   initialize: () ->
     @matrix.css('font-size', "#{atom.config.get('editor.fontSize')}px")
+    @refreshLink.click(=> atom.buildboxStatus.update())
 
     atom.workspaceView.command 'buildbox-status:toggle-build-matrix', =>
       @toggle()
@@ -57,6 +59,11 @@ class BuildMatrixView extends View
   updateFromJson: (buildData) =>
     @buildMatrix(null, buildData)
 
+  noBuild: =>
+    @matrix.removeClass('pending success fail')
+    @builds.empty()
+    @title.html("No build found")
+
   # Internal: Callback for the Travis CI build status, updates the build matrix.
   #
   # err  - The error object if there was an error, else null.
@@ -68,30 +75,52 @@ class BuildMatrixView extends View
     return console.log "Error:", err if err?
 
     number = data['number']
-    started = new Date(data['started_at'])
-    finished = new Date(data['finished_at'])
 
-    duration = ((finished - started) / 1000).toString()
+    progressString = if data['state'] is 'running'
+      started = new Date(data['started_at'])
+      now = new Date()
 
-    console.log("Single build", data)
+      duration = ((now - started) / 1000).toString()
+
+      "in progress for #{duration.formattedDuration()}"
+    else if data['state'] in ['passed', 'failed']
+      started = new Date(data['started_at'])
+      finished = new Date(data['finished_at'])
+
+      duration = ((finished - started) / 1000).toString()
+
+      "took #{duration.formattedDuration()}"
+
 
     buildboxUrl = atom.buildbox.urlForBuild(number)
-    @title.html("Build <a href='#{buildboxUrl}'>#{number}</a> took #{duration.formattedDuration()}")
+    @title.html("Build <a href='#{buildboxUrl}'>#{number}</a> #{progressString}")
     @builds.empty()
-    @addBuild(build) for build in data['jobs'][0]
+
+    buildComplete = data['state'] in ['passed', 'failed']
+
+    for buildSet in data['jobs']
+      @addBuild(build, buildComplete) for build in buildSet
 
   # Internal: Add the build details to the builds list.
   #
   # build - The object of build details from the matrix array.
   #
   # Returns nothing.
-  addBuild: (build) =>
-    status = if build['exit_status'] is 0 then 'success' else 'fail'
+  addBuild: (build, buildComplete) =>
+    status = if build['exit_status'] is 0
+      'success'
+    else if build['exit_status'] is null
+      'pending'
+    else
+      'fail'
 
     duration = if build['finished_at']
       started = new Date(build['started_at'])
       finished = new Date(build['finished_at'])
       ((finished - started) / 1000).toString().formattedDuration()
+    else if buildComplete
+      "Did not run"
+      status = "ignored"
     else
       "Incomplete"
 

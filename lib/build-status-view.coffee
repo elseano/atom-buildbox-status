@@ -80,7 +80,7 @@ class BuildStatusView extends View
   update: =>
     return unless @hasParent()
 
-    @status.addClass('pending')
+    @status.removeClass('success fail').addClass("pending")
 
     branchPath = (atom.project.getRepo()?.branch ? "").split("/")
     branch = branchPath[branchPath.length - 1]
@@ -97,20 +97,31 @@ class BuildStatusView extends View
   repoStatus: (err, data) =>
     return console.log "Error:", err if err?
 
-    console.log("Removing class")
-
     @status.removeClass('pending success fail')
-
-    console.log(data)
 
     lastBuild = data[0]
 
     console.log("Last build ", lastBuild)
-    console.log("Last Build is", lastBuild['state'])
 
-    @matrix.updateFromJson(lastBuild)
+    if lastBuild
+      @matrix.updateFromJson(lastBuild)
 
-    if lastBuild and lastBuild['state'] is "passed"
-      @status.addClass('success')
+      if lastBuild['state'] is "passed"
+        @status.addClass('success')
+        @clearTimer()
+      else if lastBuild['state'] is "running"
+        @status.addClass('pending')
+        @startTimer()
+      else
+        @status.addClass('fail')
+        @clearTimer()
     else
-      @status.addClass('fail')
+      @matrix.noBuild()
+
+  clearTimer: =>
+    if @updateTimer
+      window.clearInterval @updateTimer
+      @updateTimer = null
+
+  startTimer: =>
+    @updateTimer ?= window.setInterval (=> @update()), 30000

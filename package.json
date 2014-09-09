@@ -1,5 +1,5 @@
 {
-  "name": "buildbox-status",
+  "name": "Buildbox Status",
   "main": "./lib/buildbox-status",
   "version": "0.0.4",
   "description": "A status line indicator for buildbox builds",
