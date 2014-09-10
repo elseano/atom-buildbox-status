@@ -9,6 +9,8 @@ class BuildStatusView extends View
   @content: ->
     @div class: 'buildbox-status inline-block', =>
       @span class: 'build-status icon icon-history', outlet: 'status', tabindex: -1, ''
+      @span class: 'build-number', =>
+        @a href: '', outlet: 'buildLink', style: 'display: none', ''
 
   # Internal: Initialize the view.
   #
@@ -106,6 +108,10 @@ class BuildStatusView extends View
     if lastBuild
       @matrix.updateFromJson(lastBuild)
 
+      number = lastBuild['number']
+      @buildLink.html(number)
+      @buildLink.attr("href", atom.buildbox.urlForBuild(number)).show()
+
       if lastBuild['state'] is "passed"
         @status.addClass('success')
         @clearTimer()
@@ -116,6 +122,7 @@ class BuildStatusView extends View
         @status.addClass('fail')
         @clearTimer()
     else
+      @buildLink.hide()
       @matrix.noBuild()
 
   clearTimer: =>
